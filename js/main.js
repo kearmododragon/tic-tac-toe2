@@ -42,13 +42,10 @@ function handleClick(evt) {
     render()
 }
 
-
-
 btnEls.forEach(function (btn) {
     //console.log(btn)
     btn.addEventListener("click", handleClick)
 })
-
 
 /*----- functions -----*/
 
@@ -84,19 +81,16 @@ function renderResults() {
     } else if (winner == "player"){
         pResultEl.style.borderColor = "green"
         cResultEl.style.borderColor = "red"
-    } else{
+    } else if (winner == "computer") {
         pResultEl.style.borderColor = "red"
         cResultEl.style.borderColor = "green"
-    }}
-
+}}
 
 function getComputerChoice() {
     const options = ["R", "P", "S"]
     const randomPos = Math.floor(Math.random() * options.length)
     return options[randomPos]
 }
-
-
 
 function checkWinner(p1, p2) {
     console.log("Check Winner", p1, p2)
