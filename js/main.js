@@ -12,6 +12,11 @@ let playerScore
 let tieScore
 let computerScore
 
+let playerResult
+let computerResult
+
+let winner = null
+
 //will we need a variable to track the current result (TBD)
 
 /*----- cached element references -----*/
@@ -27,19 +32,19 @@ const cResultEl = document.querySelector("#c-result")
 
 /*----- event listeners -----*/
 
-function handleClick(evt){
+function handleClick(evt) {
     //console.log(evt.target.textContent)
     const playerChoice = evt.target.textContent
     const computerChoice = getComputerChoice()
     checkWinner(playerChoice, computerChoice)
-    playerResult = results [playerChoice]
-    computerResult = results [computerChoice]
+    playerResult = results[playerChoice]
+    computerResult = results[computerChoice]
     render()
 }
 
 
 
-btnEls.forEach(function(btn){
+btnEls.forEach(function (btn) {
     //console.log(btn)
     btn.addEventListener("click", handleClick)
 })
@@ -47,7 +52,7 @@ btnEls.forEach(function(btn){
 
 /*----- functions -----*/
 
-function init(){
+function init() {
     playerScore = 0
     tieScore = 0
     computerScore = 0
@@ -57,50 +62,61 @@ function init(){
     render()
 }
 
-function render (){
+function render() {
     renderScores()
     renderResults
 }
 
-function renderScores(){
+function renderScores() {
     pScoreEl.textContent = playerScore
     tScoreEl.textContent = tieScore
     cScoreEl.textContent = computerScore
     renderResults()
 }
 
-function renderResults(){
+function renderResults() {
     pResultEl.setAttribute("src", playerResult)
     cResultEl.setAttribute("src", computerResult)
     //update cached dom elements 
-}
+    if (winner == "tie"){
+        pResultEl.style.borderColor = "yellow"
+        cResultEl.style.borderColor = "yellow"
+    } else if (winner == "player"){
+        pResultEl.style.borderColor = "green"
+        cResultEl.style.borderColor = "red"
+    } else{
+        pResultEl.style.borderColor = "red"
+        cResultEl.style.borderColor = "green"
+    }}
+
 
 function getComputerChoice() {
     const options = ["R", "P", "S"]
-    const randomPos = Math.floor(Math.random()*options.length)
+    const randomPos = Math.floor(Math.random() * options.length)
     return options[randomPos]
 }
 
 
 
-function checkWinner(p1, p2){
+function checkWinner(p1, p2) {
     console.log("Check Winner", p1, p2)
-    if(p1===p2){
-        console.log("TIE")
-        tieScore ++
-    } else if (p1=== "R" && p2==="S"){
-        console.log("Player wins!")
-        playerScore ++
-    }else if (p1=== "P" && p2==="R"){
-        console.log("Player wins!")
-        playerScore ++
-}else if (p1=== "S" && p2==="P"){
-    console.log("Player wins!")
-    playerScore ++
-} else {
-    console.log("Computer wins!")
-    computerScore ++
-    
-}}
+    if (p1 === p2) {
+        winner = "tie"
+        tieScore++
+    } else if (p1 === "R" && p2 === "S") {
+        winner = "player"
+        playerScore++
+    } else if (p1 === "P" && p2 === "R") {
+        winner = "player"
+        playerScore++
+    } else if (p1 === "S" && p2 === "P") {
+        winner = "player"
+        playerScore++
+    } else {
+        winner = "computer"
+        computerScore++
+    }
+    console.log(winner)
+}
 
 init()
