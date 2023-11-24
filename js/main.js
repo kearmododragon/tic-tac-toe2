@@ -24,39 +24,35 @@ function handleClick(evt){
     //console.log(evt.target.textContent)
     const playerChoice = evt.target.textContent
     const computerChoice = getComputerChoice()
-    console.log(playerChoice, computerChoice)
+    // p1 = playerChoice
+    // p2 = computerChoice
+    // console.log(playerChoice, computerChoice)
+    checkWinner(playerChoice, computerChoice)
+    render()
 }
+
+
 
 btnEls.forEach(function(btn){
     //console.log(btn)
     btn.addEventListener("click", handleClick)
-
-
 })
 
 
 /*----- functions -----*/
 
 function init(){
-    console.log("starting the game")
-    //set the data
     playerScore = 0
     tieScore = 0
     computerScore = 0
-
     render()
 }
 
 function render (){
-    console.log("rendering the game")
-
-
     renderScores()
-
 }
 
 function renderScores(){
-    console.log("rendering the scores")
     pScoreEl.textContent = playerScore
     tScoreEl.textContent = tieScore
     cScoreEl.textContent = computerScore
@@ -64,10 +60,7 @@ function renderScores(){
 }
 
 function renderResults(){
-    console.log("rendering the results")
     //update cached dom elements 
-
-
 }
 
 function getComputerChoice() {
@@ -75,5 +68,27 @@ function getComputerChoice() {
     const randomPos = Math.floor(Math.random()*options.length)
     return options[randomPos]
 }
+
+
+
+function checkWinner(p1, p2){
+    console.log("Check Winner", p1, p2)
+    if(p1===p2){
+        console.log("TIE")
+        tieScore ++
+    } else if (p1=== "R" && p2==="S"){
+        console.log("Player wins!")
+        playerScore ++
+    }else if (p1=== "P" && p2==="R"){
+        console.log("Player wins!")
+        playerScore ++
+}else if (p1=== "S" && p2==="P"){
+    console.log("Player wins!")
+    playerScore ++
+} else {
+    console.log("Computer wins!")
+    computerScore ++
+    
+}}
 
 init()
