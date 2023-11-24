@@ -1,7 +1,11 @@
 /*----- constants -----*/
 const AUDIO = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-simple-countdown-922.mp3');
 
-
+const results = {
+    "R": "./img/rock.png",
+    "P": "./img/paper.png",
+    "S": "./img/scissors.png",
+}
 /*----- app's state (variables) -----*/
 // playerScore, tieScore, computerScore
 let playerScore
@@ -18,16 +22,18 @@ const cScoreEl = document.querySelector("#c-score")
 
 const btnEls = document.querySelectorAll("button")
 
+const pResultEl = document.querySelector("#p-result")
+const cResultEl = document.querySelector("#c-result")
+
 /*----- event listeners -----*/
 
 function handleClick(evt){
     //console.log(evt.target.textContent)
     const playerChoice = evt.target.textContent
     const computerChoice = getComputerChoice()
-    // p1 = playerChoice
-    // p2 = computerChoice
-    // console.log(playerChoice, computerChoice)
     checkWinner(playerChoice, computerChoice)
+    playerResult = results [playerChoice]
+    computerResult = results [computerChoice]
     render()
 }
 
@@ -45,11 +51,15 @@ function init(){
     playerScore = 0
     tieScore = 0
     computerScore = 0
+
+    playerResult = './img/rock.png'
+    computerResult = './img/rock.png'
     render()
 }
 
 function render (){
     renderScores()
+    renderResults
 }
 
 function renderScores(){
@@ -60,6 +70,8 @@ function renderScores(){
 }
 
 function renderResults(){
+    pResultEl.setAttribute("src", playerResult)
+    cResultEl.setAttribute("src", computerResult)
     //update cached dom elements 
 }
 
